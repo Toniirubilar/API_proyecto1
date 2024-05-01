@@ -13,9 +13,15 @@ const listUser = [
         name:"pedro",
         lastname:"pepito",
         age: 21,
-        hincha:"river"
-    }
+        hincha:"River",
+    },
     
+    {
+        name:"Marina",
+        lastname:"Martinez",
+        age: 24,
+        hincha:"Boca Juniors",
+    }
 ]
 
 app.get('/users', (req, res) =>{
@@ -43,11 +49,32 @@ app.get('/user/find', (req, res) => {
     })
 })
 
+//Crear nuevo usuario:
+app.post('users/create', (req, res) => {
+    
+    const {name, lastname, age, hincha} = req.body;
+
+    listUser = (... listUser, {name, lastname, age, hincha})
+
+    const id = listUser(listUser.length-1).id+1;
+    // const id = listUser.splice(listUser.length-1,listUser.length)
+    listUser.push(newUser);
+    res.status(201).json({
+        ok: true,
+        msg: "Usuario agregado con éxito"
+    }
+    )
+})
+
+//Maneras de agregar usuarios
+// listUser.push(newUser);
+// listUser.push(req.body);
+// listUser.push(... listUser. req.body):
 
 app.get('/user/find/id', (req, res) => {
     const {query} = req;
     const {id} = query;
-    const result = listUser.find((user) => user.id === id);
+    const result = listUser.find((user) => parseInt(user.id) == parseInt(id));
 
     if (result)
         res.status(200).json({
@@ -61,6 +88,8 @@ app.get('/user/find/id', (req, res) => {
         })
 })
 
+
+//Escuchamos en el puerto 3000
 app.listen(3000, ()=> {
     console.log(`Servidor corriendo en el puerto ${port}`);
 })
