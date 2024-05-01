@@ -9,22 +9,14 @@ app.get('/', (req, res)=>{
 })
 
 const listUser = [
-    name = "pedro",
-    lastname = "pepito",
-    age = 21,
-    hincha = "river",
+    {
+        name:"pedro",
+        lastname:"pepito",
+        age: 21,
+        hincha:"river"
+    }
+    
 ]
-
-
-// app.get('/users', (req, res)=>{
-//     res.status(200).json({
-//         nombre: "Agustin",
-//         apellido:"Rubilar",
-//         edad: "24",
-//         hincha: "River Plate"
-
-//     })
-// })
 
 app.get('/users', (req, res) =>{
     res.json ({
@@ -49,6 +41,24 @@ app.get('/user/find', (req, res) => {
         msg:"se esta consultando",
         result
     })
+})
+
+
+app.get('/user/find/id', (req, res) => {
+    const {query} = req;
+    const {id} = query;
+    const result = listUser.find((user) => user.id === id);
+
+    if (result)
+        res.status(200).json({
+            ok:true,
+            result
+        })
+    else
+        res.status(404).json({
+            ok:false,
+            msg:"No se Encontro"
+        })
 })
 
 app.listen(3000, ()=> {
