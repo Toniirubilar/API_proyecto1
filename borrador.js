@@ -50,23 +50,30 @@ app.get('/user/find', (req, res) => {
 })
 
 //Crear nuevo usuario:
-app.post('users/create', (req, res) => {
 
-    const { name, lastname, age, hincha } = req.body;
+app.post('/users/create', (req, res) => {
+    //
+    const { name, lastname, age, hincha, } = req.body;
 
-    listUser = (...listUser, { name, lastname, age, hincha })
+    //listUser.push(req.body);
+    //listUser = [... listUser, req.body]
+    //listUser.push({... req.body, name: 'Ana'})
+    //listUser = [... listUser, {... req.body, name: 'Ana'}]
 
-    const id = listUser(listUser.length - 1).id + 1;
-    // const id = listUser.splice(listUser.length-1,listUser.length)
+    const id = listUser[listUser.length - 1].id + 1;
+
+    const newUser = { ...req.body, id }
+
     listUser.push(newUser);
-
 
     res.status(201).json({
         ok: true,
-        msg: "Usuario agregado con éxito"
-    }
-    )
+        msg: "Usuario agregado con Exito!",
+        newUser
+    })
+
 })
+
 //Editar un usuario
 app.put("users/edit/", (req, res) => {
     const id = req.query.id;
