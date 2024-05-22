@@ -1,21 +1,21 @@
 const express = require("express");
 
 
-const { Sequelize } = require('sequelize'); //declarmos sequelize
-//conectamos la base de datos
-const sequelize = new Sequelize('curso_node', 'root',{
-    host: 'localhost',
-    dialect: 'mysql'
-})
+// const { Sequelize } = require('sequelize'); //declarmos sequelize
+// //conectamos la base de datos
+// const sequelize = new Sequelize('curso_node', 'root',{
+//     host: 'localhost',
+//     dialect: 'mysql'
+// });
 
-(async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('conectado a la base de datos correctamente');
-    } catch(error) {
-        console.log('Error al conectar la base de datos', error);
-    }
-})();
+// (async () => {
+//     try {
+//         await sequelize.authenticate();
+//         console.log('conectado a la base de datos correctamente');
+//     } catch(error) {
+//         console.log('Error al conectar la base de datos', error);
+//     }
+// })();
 //Iniciamos nuestro proyecto
 
 const app = express();
