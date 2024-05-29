@@ -1,7 +1,7 @@
 const express = require("express");
 
-
-// const { Sequelize } = require('sequelize'); //declarmos sequelize
+//conexion  a la base de datos%%%%%%%%%%%%%%%%%%%%%%%%%
+// const { Sequelize, INTEGER } = require('sequelize'); //declarmos sequelize
 // //conectamos la base de datos
 // const sequelize = new Sequelize('curso_node', 'root',{
 //     host: 'localhost',
@@ -16,6 +16,8 @@ const express = require("express");
 //         console.log('Error al conectar la base de datos', error);
 //     }
 // })();
+//FIN CONEXION %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 //Iniciamos nuestro proyecto
 
 const app = express();
@@ -23,8 +25,14 @@ const app = express();
 const port = 3000;
 
 
+//MIDDLEWARES
+
+// app.use(cors());
+// app.use(morgan());
+// app.use(express.json());
+
 app.get('/', (req, res) => {
-    res.send("<h1> Hola mundo!! </h1>");
+    res.send("<h4> Hola esta es la API de Rubilar </h4>");
 })
 
 const listUser = [
@@ -43,6 +51,28 @@ const listUser = [
     }
 ]
 
+// definimos nuestro modelo
+//realizamos las importaciones
+const { DataTypes } = require('sequelize')
+
+const User = sequelize.define('User',{
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    nroDocumento: {
+        type: DataTypes.INTEGER(8),
+        primaryKey:true,
+
+    }
+})
+
+
+// definimos nuestras routes &&&&&&&&&&&&&&&&&&
 app.get('/users', (req, res) => {
     res.json({
         ok: true,
